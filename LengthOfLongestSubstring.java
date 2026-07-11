@@ -38,7 +38,6 @@ class LengthOfLongestSubstring {
             if (tamanhoSubstring < lista.size()){
                 tamanhoSubstring = lista.size();
             }
-            System.out.println(i);
     }
     return tamanhoSubstring;
 }
