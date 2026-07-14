@@ -1,9 +1,5 @@
 
 
-import java.util.Arrays;
-
-// Given a string s, return the longest palindromic substring in s.
-
 // Example 1:
 
 // Input: s = "babad"
@@ -15,38 +11,52 @@ import java.util.Arrays;
 // Output: "bb"
 
 public class LongestPalindromicSubstring {
+    String palindromo = "";
+    int maior = 1;
     public String longestPalindrome(String s) {
-        String[] palavra = s.split("");
-        String[] palindrome = null;
-        String resultado = null;
+         
+        for(int i = s.length() / 2; i < s.length(); i++){
+            if (s.length() % 2 == 0){
+                palindromo = encontrarPalindromo(s, i, i);    
+            } else {
+                palindromo = encontrarPalindromo(s, i, i);
+            }
 
+        }
+        return palindromo;
+    }
 
-        int tamanho = palavra.length;
-        if(palavra.length % 2 == 0){
-            tamanho = tamanho / 2;
-        } else{
-            tamanho = (tamanho / 2) + 1;
+    
+    public String encontrarPalindromo(String s, int esquerda, int direita){
+            System.out.println(direita + " Direita: "+s.charAt(direita));
+            System.out.println(esquerda + " Esquerda: "+s.charAt(esquerda));
+        while(esquerda >= 0 && direita < s.length() && s.charAt(direita) == s.charAt(esquerda)){
+
+            if(s.charAt(esquerda) == s.charAt(direita) && direita != esquerda){
+            if (s.length() % 2 == 0){
+                palindromo = s.substring(esquerda, direita);    
+            } else {
+                palindromo = s.substring(esquerda, direita + 1);
+            }
+                
+            }
+            System.out.println("Palindromo: " + palindromo.length());
+            System.out.println("Maior: " + maior);
+
+            direita++;
+            esquerda--;
+
         }
 
-        for(int i = 0; i < palavra.length; i++){
-                if(palavra[i].equals(palavra[tamanho - 1 - i])){
-                    System.out.println(tamanho);
-                    palindrome = Arrays.copyOfRange(palavra, i, tamanho - 1 - i);
-                    resultado = String.join("", palindrome);
-                } else{
-                    while(palindrome.contains(palavra[i])){
-                        palindrome.remove(0);
-                    }
-                }      
-            }
-        
-        return resultado;
+        System.out.println("palindromo: "+ palindromo);
+        return palindromo;
     }
+    
 
     public static void main(String[] args) {
         LongestPalindromicSubstring teste = new LongestPalindromicSubstring();
 
-        System.out.println("Resultado: " + teste.longestPalindrome("babad"));
+        System.out.println("Resultado: " + teste.longestPalindrome("cbbd"));
 
     }
 
