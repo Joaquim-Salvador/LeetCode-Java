@@ -12,51 +12,38 @@
 
 public class LongestPalindromicSubstring {
     String palindromo = "";
-    int maior = 1;
+    String novoPalindromo = "";
+
     public String longestPalindrome(String s) {
          
-        for(int i = s.length() / 2; i < s.length(); i++){
-            if (s.length() % 2 == 0){
-                palindromo = encontrarPalindromo(s, i, i);    
-            } else {
+        for(int i = 0; i < s.length(); i++){
+                palindromo = encontrarPalindromo(s, i - 1, i);    
                 palindromo = encontrarPalindromo(s, i, i);
-            }
-
         }
         return palindromo;
     }
 
     
     public String encontrarPalindromo(String s, int esquerda, int direita){
-            System.out.println(direita + " Direita: "+s.charAt(direita));
-            System.out.println(esquerda + " Esquerda: "+s.charAt(esquerda));
-        while(esquerda >= 0 && direita < s.length() && s.charAt(direita) == s.charAt(esquerda)){
+        while(esquerda >= 0 && direita < s.length() && s.charAt(esquerda) == s.charAt(direita)){
 
-            if(s.charAt(esquerda) == s.charAt(direita) && direita != esquerda){
-            if (s.length() % 2 == 0){
-                palindromo = s.substring(esquerda, direita);    
-            } else {
+            if(s.charAt(esquerda) == s.charAt(direita)){
                 palindromo = s.substring(esquerda, direita + 1);
+                if(palindromo.length() > novoPalindromo.length()){
+                    novoPalindromo = palindromo;
+                }
             }
-                
-            }
-            System.out.println("Palindromo: " + palindromo.length());
-            System.out.println("Maior: " + maior);
-
             direita++;
             esquerda--;
-
         }
-
-        System.out.println("palindromo: "+ palindromo);
-        return palindromo;
+        return novoPalindromo;
     }
     
 
     public static void main(String[] args) {
         LongestPalindromicSubstring teste = new LongestPalindromicSubstring();
-
-        System.out.println("Resultado: " + teste.longestPalindrome("cbbd"));
+                                                                   
+        System.out.println(teste.longestPalindrome("babad")); 
 
     }
 
