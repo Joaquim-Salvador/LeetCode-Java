@@ -17,8 +17,6 @@
 // Output: [[2,2,2,2]]
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 class FourSum {
@@ -27,19 +25,17 @@ class FourSum {
         List<List<Integer>> listaCerta = new ArrayList<>();
 
         for(int i = 0; i < nums.length; i++){    
+            int direita = nums.length - 1;
+            int esquerda = i + 2;
             for(int j = i + 1; j < nums.length; j++){
-                for(int k = j + 1; k < nums.length; k++){
-                    for(int l = k + 1; l < nums.length; l++){
-                        if((nums[i] + nums[j] + nums[k] + nums[l]) == target){
-                            numeros.addAll(Arrays.asList(nums[i], nums[j], nums[k], nums[l]));
-                            Collections.sort(numeros);
-                            if(!listaCerta.contains(numeros)){
-                                listaCerta.add(new ArrayList<>(numeros));
-                            }
-                            numeros = new ArrayList<>();
-                        }
-                    }
+                int soma = nums[i] + nums[j];
+                int sobra = soma - target;
+                while(sobra != target || esquerda != direita){
+                    if(sobra )
+
                 }
+
+
             }
         }
         return listaCerta;
@@ -48,6 +44,19 @@ class FourSum {
     public static void main (String[] args) {
         FourSum teste = new FourSum();
         
-        System.out.print(teste.fourSum(new int[] {2,2,2,2,2}, 8));
+        System.out.print(teste.fourSum(new int[] {3,2,1,4,3,25,6,5,3,4,1,2,3,5,3,2,3,4,65,6,3,2}, 7));
     }
 }
+
+// for(int k = j + 1; k < nums.length; k++){
+//                     for(int l = k + 1; l < nums.length; l++){
+//                         if((nums[i] + nums[j] + nums[k] + nums[l]) == target){
+//                             numeros.addAll(Arrays.asList(nums[i], nums[j], nums[k], nums[l]));
+//                             Collections.sort(numeros);
+//                             if(!listaCerta.contains(numeros)){
+//                                 listaCerta.add(new ArrayList<>(numeros));
+//                             }
+//                             numeros = new ArrayList<>();
+//                         }
+//                     }
+//                 }
