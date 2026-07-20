@@ -24,13 +24,21 @@ class FourSum {
     public List<List<Integer>> fourSum(int[] nums, int target) {
         Arrays.sort(nums);
         List<List<Integer>> listaCerta = new ArrayList<>();
-        int direita = nums.length - 1;
+        
 
         for(int i = 0; i < nums.length; i++){    
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
             for(int j = i + 1; j < nums.length; j++){
+                if (j > i + 1 && nums[j] == nums[j - 1]) {
+                    continue;
+                }
                 int esquerda = j + 1;
-                int soma = nums[i] + nums[j];
-                int sobra = target - soma;
+                int direita = nums.length - 1;
+                long soma = nums[i] + nums[j];
+                long sobra = target - soma;
+
                 while(esquerda < direita){
                     if((nums[direita] + nums[esquerda]) < sobra){
                         esquerda += 1;
@@ -39,23 +47,21 @@ class FourSum {
                         direita -= 1;
                     }
 
-                    if((nums[direita] + nums[esquerda]) == sobra){
+                    else if((nums[direita] + nums[esquerda]) == sobra){
                         listaCerta.add(Arrays.asList(nums[i], nums[j], nums[direita], nums[esquerda]));
                         direita--;
                         esquerda++;
 
-                        while(nums[esquerda] == nums[esquerda - 1] || nums[direita] == nums[direita + 1]){
-                            if(nums[direita] == nums[direita + 1]){
-                                direita--;
-                            }
-                            else if (nums[esquerda] == nums[esquerda - 1]){
-                                esquerda++;
-                            }
+                    while(esquerda < direita && (nums[esquerda] == nums[esquerda - 1] || nums[direita] == nums[direita + 1])){
+                        if(nums[esquerda] == nums[esquerda - 1]){
+                            esquerda++;
+                        }
+                        if(nums[direita] == nums[direita + 1]){
+                        direita--;
                         }
                     }
                 }
-                esquerda = j + 1;
-                direita = nums.length - 1;
+            }
             }
         }
         return listaCerta;
@@ -64,6 +70,6 @@ class FourSum {
     public static void main (String[] args) {
         FourSum teste = new FourSum();
         
-        System.out.print(teste.fourSum(new int[] {2,2,2,2,2}, 8));
+        System.out.print(teste.fourSum(new int[] {1000000000,1000000000,1000000000,1000000000}, -294967296));
     }
 }
