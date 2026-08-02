@@ -55,18 +55,49 @@
 
 // Form pairs: gcd(2, 8) = 2 and gcd(3, 6) = 3. Thus, the sum is 2 + 3 = 5.
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Arrays;
 
 public class SumOfGCDOfFormedPairs{
     public long gcdSum(int[] nums) {
-        Set<Integer> numeros = new HashSet<>();
+        int soma = 0;
+        Arrays.sort(nums);
 
+        int esquerda = 0;
+        int direita = nums.length - 1;
+
+
+        for (int i = 0; i < (nums.length - 1)/2; i++) {
+            soma = maiorDivisorComum(nums[esquerda], nums[direita]); 
+            esquerda++;
+            direita--;
+        }
+        return soma;
+    }
+
+    public int maiorDivisorComum(int num1, int num2){
+        int divisor = 2;
+
+        int res1 = num1 / divisor;
+        int res2 = num2 / divisor;
+
+        while(res1 != 0 && res2 != 0){
+        res1 = num1 / divisor;
+        res2 = num2 / divisor;
+
+        divisor++;
+
+
+        }
+        return divisor;
+    }
+
+    public static void main(String[] args) {
+     SumOfGCDOfFormedPairs teste = new SumOfGCDOfFormedPairs();
+
+     System.out.println(teste.maiorDivisorComum(2, 6));
         
 
     }
-
-
 
 
 }
