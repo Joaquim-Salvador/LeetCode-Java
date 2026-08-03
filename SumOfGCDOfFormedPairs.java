@@ -55,19 +55,32 @@
 
 // Form pairs: gcd(2, 8) = 2 and gcd(3, 6) = 3. Thus, the sum is 2 + 3 = 5.
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class SumOfGCDOfFormedPairs{
     public long gcdSum(int[] nums) {
-        int soma = 0;
-        Arrays.sort(nums);
+        long soma = 0;
 
         int esquerda = 0;
         int direita = nums.length - 1;
 
+        int maior = 0;
 
-        for (int i = 0; i < (nums.length - 1)/2; i++) {
-            soma = maiorDivisorComum(nums[esquerda], nums[direita]); 
+        List<Integer> prefixGcd = new ArrayList<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            if(nums[i] > maior){
+                maior = nums[i];
+            }
+            prefixGcd.add(maiorDivisorComum(nums[i], maior));
+        }
+
+        Collections.sort(prefixGcd);
+
+        while(esquerda < direita) {
+            soma += maiorDivisorComum(prefixGcd.get(esquerda), prefixGcd.get(direita)); 
             esquerda++;
             direita--;
         }
@@ -75,29 +88,20 @@ public class SumOfGCDOfFormedPairs{
     }
 
     public int maiorDivisorComum(int num1, int num2){
-        int divisor = 2;
-
-        int res1 = num1 / divisor;
-        int res2 = num2 / divisor;
-
-        while(res1 != 0 && res2 != 0){
-        res1 = num1 / divisor;
-        res2 = num2 / divisor;
-
-        divisor++;
-
-
+        while (num2 != 0) {
+            int resto = num1 % num2;
+            num1 = num2;
+            num2 = resto;
         }
-        return divisor;
+        return num1;
     }
 
     public static void main(String[] args) {
      SumOfGCDOfFormedPairs teste = new SumOfGCDOfFormedPairs();
 
-     System.out.println(teste.maiorDivisorComum(2, 6));
-        
+     System.out.println(teste.gcdSum(new int[] {2, 3, 6, 8}));
 
     }
-
-
 }
+
+
