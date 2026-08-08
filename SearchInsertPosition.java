@@ -1,4 +1,4 @@
-
+// 35. Search Insert Position
 // Attempted
 // Easy
 // Topics
@@ -26,28 +26,41 @@
 public class SearchInsertPosition{
     public int searchInsert(int[] nums, int target) {
         int e = 0;
-        int d = nums.length;
+        int d = nums.length - 1;
         int m = (e + d) / 2;
 
-        while(e < d){
+        if(target > nums[d]){
+            return d + 1;
+        } else if(target < nums[e]){
+            return 0;
+        }
+        
+
+        while(e <= d){
+            System.out.println("Meio: " + nums[m]);
+
             if(nums[m] > target){
                 d = m - 1;
+                System.out.println("Direita: " + nums[d]);
             } else if(nums[m] < target){
                 e = m + 1;
+                System.out.println("Esquerda: " + nums[e]);
             } else{
+                System.out.println("Meio: " + m);
                 return m;
             }
-            m = e / d;
+            m = (e + d) / 2;
 
         }
-        return m;
+        return m + 1;
+    
     }
-
+    
     public static void main(String[] args) {
         SearchInsertPosition teste = new SearchInsertPosition();
 
 
-        System.out.println(teste.searchInsert(new int[] {1,3,5,6}, 2));
+        System.out.println(teste.searchInsert(new int[] {1,3,5}, 4));
 
     }
 
